@@ -1,6 +1,6 @@
 ---
 # Calls the install_utilities tasks
-- name: Configures Splunk user
+- name: Installs linux_packages
   hosts: all
   become: true
 

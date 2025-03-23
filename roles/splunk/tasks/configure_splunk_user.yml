@@ -1,6 +1,7 @@
 ---
 # This task will configure the nix user for splunk
 - name: Block for non-root splunk user setup
+  when: splunk_nix_user != 'root'
   block:
     - name: Add nix splunk group
       ansible.builtin.group:
@@ -60,5 +61,3 @@
       loop:
         - { bashtemplate: 'bashrc.j2', bashfilepath: '.bashrc' }
         - { bashtemplate: 'bash_profile.j2', bashfilepath: '.bash_profile' }
-
-  when: splunk_nix_user != 'root'
