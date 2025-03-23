@@ -1,0 +1,11 @@
+---
+# Calls the install_utilities tasks
+- name: Configures Splunk user
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Include install_utilities tasks
+      ansible.builtin.include_role:
+        name: splunk
+        tasks_from: install_utilities.yml

@@ -1,2 +1,26 @@
 ---
 # vars file for ansible-splunk
+global_bashrc: /etc/bashrc
+chk_config_cmd: chkconfig --add disable-thp
+firewall_service: firewalld
+linux_packages:
+  # - nload
+  # - iotop
+  # - iftop
+  # - sysstat
+  # - telnet
+  # - tcpdump
+  # - htop
+  # - atop
+  # - lsof
+  # - policycoreutils-python-utils
+  # - policycoreutils
+  # - setroubleshoot
+  # - nethogs
+  # - gdb
+  # - bind-utils
+  - tar
+  - zip
+  - unzip
+  - acl
+  - vim

@@ -8,7 +8,7 @@ skip_list:
 #  - name
 #  - no-changed-when
 #  - no-handler
-#  - risky-file-permissions
+  - risky-file-permissions
 #  - role-name
 #  - schema
   - var-naming[no-role-prefix]

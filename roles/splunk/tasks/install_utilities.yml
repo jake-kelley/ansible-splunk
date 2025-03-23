@@ -1,0 +1,7 @@
+---
+- name: Install packages for splunk
+  ansible.builtin.package:
+    name: "{{ linux_packages }}"
+    state: present
+    update_cache: true
+  when: install_utilities
