@@ -1,4 +1,4 @@
-Role Name
+ansible-splunk
 =========
 
 Ansible automation for installation and configuration of Splunk Enterprise
