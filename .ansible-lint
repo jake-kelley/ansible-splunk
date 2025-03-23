@@ -12,6 +12,7 @@ skip_list:
 #  - role-name
 #  - schema
   - var-naming[no-role-prefix]
-#  - var-naming[pattern]
+  - var-naming[pattern]
 #  - yaml[quoted-strings]
   - yaml[line-length]
+  - name[casing]

@@ -1,7 +1,7 @@
 ---
 ########## defaults file for splunk role
 ########## Anything that is undefined here should be configured. I recommend setting the values in your group_vars under an all.yml file.
-# splunk_home: auto_determined  # This gets set by main.yml but we have to define it here or Ansible will complain that it is undefined
+splunk_home: /opt/splunk  # This gets set by main.yml but we have to define it here or Ansible will complain that it is undefined
 # splunk_package_url: auto_determined  # This gets set by main.yml but we have to define it here or Ansible will complain that it is undefined
 # splunk_package_path: ~/
 # splunk_package_version: 9.4.1 # The default version to install or update to. This can be set in `group_vars` or `host_vars`.

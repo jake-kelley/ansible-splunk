@@ -1,0 +1,11 @@
+---
+# Calls the configure_splunk_user tasks
+- name: Configures Splunk user
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Include configure_splunk_user tasks
+      ansible.builtin.include_role:
+        name: splunk
+        tasks_from: configure_splunk_user.yml

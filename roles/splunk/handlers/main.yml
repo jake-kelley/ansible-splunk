@@ -1,2 +1,7 @@
 ---
 # handlers file for ansible-splunk
+- name: Restart_redhat_auditd_service
+  ansible.builtin.shell: |
+    service auditd stop
+    service auditd start
+  when: ansible_os_family == 'RedHat'
