@@ -2,6 +2,7 @@
 # This task will configure the nix user for splunk
 - name: Block for non-root splunk user setup
   when: splunk_nix_user != 'root'
+  tags: 1_pre
   block:
     - name: Add nix splunk group
       ansible.builtin.group:
@@ -29,26 +30,36 @@
         - true
         - false
 
-    # - name: Add setfacl to logrotate script
-    #   ansible.builtin.lineinfile:
-    #     path: "{{ logrotate_file }}" #
-    #     insertbefore: 'endscript'
-    #     line: '        /usr/bin/setfacl -Rm u:{{ splunk_nix_user }}:rX /var/log'
-
     - name: Check if auditd.conf is present
       ansible.builtin.stat:
         path: /etc/audit/auditd.conf
       register: result_auditd_conf
 
-    - name: Allow splunk to read /var/log/audit.log
-      community.general.ini_file:
-        path: /etc/audit/auditd.conf
-        section: null
-        option: log_group
-        value: "{{ splunk_nix_group }}"
-      notify:
-        - Restart_redhat_auditd_service
+    - name: Add auditd reload to logrotate config
+      ansible.builtin.lineinfile:
+        path: "{{ logrotate_file }}"
+        insertbefore: 'endscript'
+        line: '        /usr/bin/systemctl reload auditd'
       when: result_auditd_conf.stat.exists
+      tags: acl
+      
+
+    - name: Add setfacl to logrotate config
+      ansible.builtin.lineinfile:
+        path: "{{ logrotate_file }}"
+        insertbefore: 'endscript'
+        line: "        /usr/bin/setfacl -Rm u:{{ splunk_nix_user }}:rX /var/log"
+      tags: acl
+
+    # - name: Allow splunk to read /var/log/audit.log
+    #   community.general.ini_file:
+    #     path: /etc/audit/auditd.conf
+    #     section: null
+    #     option: log_group
+    #     value: "{{ splunk_nix_group }}"
+    #   notify:
+    #     - Restart_redhat_auditd_service
+    #   when: result_auditd_conf.stat.exists
 
     - name: Install .bashrc and .bash_profile files
       ansible.builtin.template:

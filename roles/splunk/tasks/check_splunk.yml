@@ -1,0 +1,6 @@
+---
+- name: Check if Splunk is installed
+  ansible.builtin.stat:
+    path: "{{ splunk_home }}/bin/splunk"
+    follow: true
+  register: splunkd_path
